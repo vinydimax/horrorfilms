@@ -8,33 +8,32 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "movies")
+@Table(name = "search_history")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Movie {
+public class SearchHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private Long tmdbId;
-
     @Column(nullable = false)
-    private String title;
+    private String query;
 
-    @Column(columnDefinition = "TEXT")
-    private String overview;
+    @Column
+    private Integer resultCount;
 
-    @Column(name = "cached_at")
-    private LocalDateTime cachedAt;
+    @Column(name = "searched_at")
+    private LocalDateTime searchedAt;
+
+    @Column
+    private String ipAddress;
 
     @PrePersist
     public void prePersist(){
-        this.cachedAt = LocalDateTime.now();
+        this.searchedAt = LocalDateTime.now;
     }
-
 
 
 }
